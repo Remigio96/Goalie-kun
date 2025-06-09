@@ -1,3 +1,9 @@
-RewriteEngine On
-RewriteBase /
-RewriteRule (.*) public/$1 [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si la petición ya apunta a /public, deja pasar
+    RewriteCond %{REQUEST_URI} !^/public/
+
+    # Redirige todo a /public/index.php
+    RewriteRule ^(.*)$ /public/$1 [L,NC,QSA]
+</IfModule>

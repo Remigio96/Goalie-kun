@@ -2,10 +2,18 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+use CodeIgniter\Controller;
+
+class Home extends Controller
 {
-    public function index(): string
+    public function index()
     {
-        return view('welcome_message');
+        // Si ya está logueado, redirige al dashboard
+        if (session()->get('isLoggedIn')) {
+            return redirect()->to('/dashboard');
+        }
+
+        // Si no, muestra la landing page
+        return view('home/welcome', ['title' => 'Bienvenido']);
     }
 }
